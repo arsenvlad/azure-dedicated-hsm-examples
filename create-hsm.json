@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"location": {
+			"type": "string",
+			"defaultValue": "[resourceGroup().location]"
+		},
+		"hsmStampID": {
+			"type": "string",
+			"allowedValues": [
+				"stamp1",
+				"stamp2"
+			]
+		},
+		"hsmName": {
+			"type": "string"
+		},
+		"existingHsmSubnetID": {
+			"type": "string"
+		}
+	},
+	"variables": {
+	},
+	"resources": [
+		{
+			"apiVersion": "2018-10-31-preview",
+			"type": "Microsoft.HardwareSecurityModules/dedicatedHSMs",
+			"name": "[parameters('hsmName')]",
+			"location": "[parameters('location')]",
+			"tags": {
+				"resourceType": "Hsm",
+				"environment": "prod"
+			},
+			"sku": {
+				"name": "SafeNet Luna Network HSM A790"
+			},
+			"properties": {
+				"networkProfile": {
+					"subnet": {
+						"id": "[parameters('existingHsmSubnetID')]"
+					}
+				},
+				"stampId": "[parameters('hsmStampId')]"
+			}
+		}
+	]
+}
