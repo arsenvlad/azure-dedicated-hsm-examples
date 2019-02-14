@@ -28,7 +28,8 @@ az network vnet subnet show -g avtest1 --vnet-name avtest1-vnet --name GatewaySu
 az group deployment create -g avtest1 --template-file create-expressroute-gateway.json --parameters existingGatewaySubnetID=ID_GOES_HERE
 ```
 
-### Create HSM devices (for HA pair make sure to place first HSM in "stamp1" and send HSM in "stamp2")
+### Create HSM devices 
+(for HA pair make sure to place first HSM in "stamp1" and send HSM in "stamp2")
 ```
 az network vnet subnet show -g avtest1 --vnet-name avtest1-vnet --name HsmSubnet --query "id" -o tsv
 
